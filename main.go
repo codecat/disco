@@ -2,6 +2,7 @@ package main
 
 import (
 	"os"
+	"os/exec"
 	"regexp"
 	"runtime"
 	"strings"
@@ -72,7 +73,12 @@ func main() {
 	}
 
 	cmd += "docker run " + flags + " " + image
-	println(cmd)
+
+	c := exec.Command("sh", "-c", cmd)
+	c.Stdin = os.Stdin
+	c.Stdout = os.Stdout
+	c.Stderr = os.Stderr
+	c.Run()
 }
 
 func toWslPath(path string) string {
