@@ -47,7 +47,7 @@ func main() {
 		homedir = toWslPath(homedir)
 	}
 
-	image := "codecatt/disco-base"
+	image := "codecatt/disco:base"
 	flags := "--rm -it"
 	flags += " -v \"" + homedir + "/.ssh:/home/developer/.ssh:ro\""
 	flags += " -v \"" + workdir + ":/src\""
@@ -56,15 +56,15 @@ func main() {
 	switch cfg.Type {
 	case "js":
 	case "javascript":
-		image = "codecatt/disco-js"
+		image = "codecatt/disco:js"
 
 	case "vite":
-		image = "codecatt/disco-js"
+		image = "codecatt/disco:js"
 		flags += " -p 127.0.0.1:5173:5173"
 
 	case "py":
 	case "python":
-		image = "codecatt/disco-py"
+		image = "codecatt/disco:py"
 	}
 
 	for _, port := range cfg.Ports {
