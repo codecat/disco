@@ -1,4 +1,4 @@
 #!/bin/sh
-docker build -t codecatt/disco-base - < images/base.dockerfile
-docker build -t codecatt/disco-js - < images/js.dockerfile
-docker build -t codecatt/disco-py - < images/py.dockerfile
+docker build -t ghcr.io/codecat/disco:base - < images/base.dockerfile
+docker build -t ghcr.io/codecat/disco:js - < images/js.dockerfile
+docker build -t ghcr.io/codecat/disco:py - < images/py.dockerfile

@@ -1,5 +1,7 @@
 FROM alpine:latest
 
+LABEL org.opencontainers.image.source=https://github.com/codecat/disco
+
 RUN apk add sudo zsh curl git vim tmux
 
 RUN adduser -D -u 1000 -s /bin/zsh developer
