@@ -17,9 +17,6 @@ type DiscoConfig struct {
 }
 
 func main() {
-	// Just for testing
-	os.Chdir("C:\\Users\\Nimble\\Desktop\\test")
-
 	for _, arg := range os.Args[1:] {
 		if arg == "--help" || arg == "-h" {
 			println("Usage: disco")
