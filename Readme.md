@@ -69,7 +69,14 @@ There are a couple extra options you can specify either in the config file or on
 
 Passed options may also be combined with `--setup` to create a config file with those options.
 
-# Building images
+# Building
+## Disco
+To build Disco and make it available for execution:
+```
+$ go install
+```
+
+## Images
 Run the build script to build all images:
 ```
 $ scripts/build.sh
