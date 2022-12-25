@@ -3,6 +3,7 @@ package main
 type DiscoConfig struct {
 	Type    string `toml:"type"`
 	Execute string `toml:"execute,omitempty"`
+	Pull    bool   `toml:"pull,omitempty"`
 
 	Ports   []string `toml:"ports,omitempty"`
 	Network string   `toml:"network,omitempty"`

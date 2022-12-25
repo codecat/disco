@@ -18,6 +18,10 @@ func start(cfg *DiscoConfig) {
 	flags := "--rm -it"
 	flags += " -v \"" + workdir + ":/src\""
 
+	if cfg.Pull {
+		flags += " --pull always"
+	}
+
 	if cfg.SSH {
 		flags += " -v \"" + homedir + "/.ssh:/home/developer/.ssh:ro\""
 	}

@@ -25,11 +25,15 @@ func main() {
 	for _, arg := range os.Args[1:] {
 		if strings.HasPrefix(arg, "-") {
 			if arg == "--help" || arg == "-h" {
-				println("Usage: disco [--setup|-s] [--ssh] [--zshrc] [type] [command] [args..]")
+				println("Usage: disco [--setup|-s] [--pull|-p] [--ssh] [--zshrc] [type] [command] [args..]")
 				return
 
 			} else if arg == "--setup" || arg == "-s" {
 				argSetup = true
+				continue
+
+			} else if arg == "--pull" || arg == "-p" {
+				cfg.Pull = true
 				continue
 
 			} else if arg == "--ssh" {
