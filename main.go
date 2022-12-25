@@ -32,6 +32,10 @@ func main() {
 				argSetup = true
 				continue
 
+			} else if arg == "--ssh" {
+				cfg.SSH = true
+				continue
+
 			} else {
 				println("Unexpected argument:", arg)
 				return
