@@ -45,6 +45,10 @@ func start(cfg *DiscoConfig) {
 		flags += " -p " + port
 	}
 
+	if cfg.Options != "" {
+		flags += " " + cfg.Options
+	}
+
 	args := "run " + flags + " " + image
 
 	if cfg.Execute != "" {
