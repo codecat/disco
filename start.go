@@ -39,6 +39,9 @@ func start(cfg *DiscoConfig) {
 
 	case "py", "python":
 		image = "codecatt/disco:py"
+
+	case "php":
+		image = "codecatt/disco:php"
 	}
 
 	for _, port := range cfg.Ports {
