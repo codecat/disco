@@ -30,7 +30,7 @@ $ npm install
 The following image types are currently available out of the box:
 
 * `base`: the base image, all other images are based on this. It has some basic utilities such as `git`, `vim`, and `tmux`.
-* `js`, `javascript`: image for Javascript development. This adds the `nodejs` and `npm` packages.
+* `js`, `javascript`: image for Javascript development. This adds the `nodejs`, `npm`, and `pnpm` packages.
 * `vite`: the same as `js`, but with port 5173 automatically exposed to 127.0.0.1.
 * `py`, `python`: image for Python3 development. This adds the `python3` and `py3-pip` packages.
 * `php`: image for PHP development. This adds the `php81` and `composer` packages.
