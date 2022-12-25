@@ -4,7 +4,7 @@
 # Install
 If you have Go installed, simply run this:
 ```
-go install github.com/codecat/disco
+go install github.com/codecat/disco@latest
 ```
 
 # Usage
