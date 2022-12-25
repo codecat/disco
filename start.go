@@ -2,17 +2,14 @@ package main
 
 import (
 	"os"
-	"os/exec"
 	"runtime"
 )
 
 func start(cfg *DiscoConfig) {
-	cmd := ""
 	workdir, _ := os.Getwd()
 	homedir, _ := os.UserHomeDir()
 
 	if runtime.GOOS == "windows" {
-		cmd = "wsl --exec "
 		workdir = toWslPath(workdir)
 		homedir = toWslPath(homedir)
 	}
@@ -48,15 +45,11 @@ func start(cfg *DiscoConfig) {
 		flags += " -p " + port
 	}
 
-	cmd += "docker run " + flags + " " + image
+	args := "run " + flags + " " + image
 
 	if cfg.Execute != "" {
-		cmd += " " + cfg.Execute
+		args += " " + cfg.Execute
 	}
 
-	c := exec.Command("sh", "-c", cmd)
-	c.Stdin = os.Stdin
-	c.Stdout = os.Stdout
-	c.Stderr = os.Stderr
-	c.Run()
+	runDocker(args)
 }
