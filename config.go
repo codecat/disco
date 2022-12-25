@@ -5,4 +5,6 @@ type DiscoConfig struct {
 	Execute string
 
 	Ports []string
+
+	SSH bool
 }

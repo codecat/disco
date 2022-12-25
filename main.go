@@ -25,7 +25,7 @@ func main() {
 	for _, arg := range os.Args[1:] {
 		if strings.HasPrefix(arg, "-") {
 			if arg == "--help" || arg == "-h" {
-				println("Usage: disco [--setup|-s] [type] [command] [args..]")
+				println("Usage: disco [--setup|-s] [--ssh] [type] [command] [args..]")
 				return
 
 			} else if arg == "--setup" || arg == "-s" {

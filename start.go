@@ -19,8 +19,11 @@ func start(cfg *DiscoConfig) {
 
 	image := "codecatt/disco:base"
 	flags := "--rm -it"
-	flags += " -v \"" + homedir + "/.ssh:/home/developer/.ssh:ro\""
 	flags += " -v \"" + workdir + ":/src\""
+
+	if cfg.SSH {
+		flags += " -v \"" + homedir + "/.ssh:/home/developer/.ssh:ro\""
+	}
 
 	switch cfg.Type {
 	case "base":
