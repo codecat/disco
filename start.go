@@ -48,6 +48,10 @@ func start(cfg *DiscoConfig) {
 		flags += " -p " + port
 	}
 
+	if cfg.Network != "" {
+		flags += " --net " + cfg.Network
+	}
+
 	if cfg.Options != "" {
 		flags += " " + cfg.Options
 	}
