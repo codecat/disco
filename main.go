@@ -2,19 +2,10 @@ package main
 
 import (
 	"os"
-	"regexp"
 	"strings"
 
 	"github.com/pelletier/go-toml"
 )
-
-var gRegexWSLPath = regexp.MustCompile(`^([a-zA-Z]+):\/`)
-
-type DiscoConfig struct {
-	Type    string
-	Ports   []string
-	Execute string
-}
 
 func main() {
 	argSetup := false
@@ -59,11 +50,4 @@ func main() {
 		setup(cfg)
 	}
 	start(cfg)
-}
-
-func toWslPath(path string) string {
-	path = strings.ReplaceAll(path, "\\", "/")
-	disk := gRegexWSLPath.FindStringSubmatch(path)
-	diskLetters := strings.ToLower(disk[1])
-	return gRegexWSLPath.ReplaceAllString(path, "/mnt/"+diskLetters+"/")
 }
