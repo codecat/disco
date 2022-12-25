@@ -7,7 +7,7 @@ import (
 
 func setup(cfg *DiscoConfig) {
 	if cfg.Type == "" {
-		panic("Missing type!")
+		cfg.Type = "base"
 	}
 
 	_, err := os.Stat("disco.toml")

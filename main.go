@@ -25,11 +25,13 @@ func main() {
 	for _, arg := range os.Args[1:] {
 		if strings.HasPrefix(arg, "-") {
 			if arg == "--help" || arg == "-h" {
-				println("Usage: disco [--setup|-s] [type]")
+				println("Usage: disco [--setup|-s] [type] [command] [args..]")
 				return
+
 			} else if arg == "--setup" || arg == "-s" {
 				argSetup = true
 				continue
+
 			} else {
 				println("Unexpected argument:", arg)
 				return
@@ -39,7 +41,7 @@ func main() {
 		if cfg.Type == "" {
 			cfg.Type = arg
 		} else {
-			if len(cfg.Execute) > 0 {
+			if cfg.Execute != "" {
 				cfg.Execute += " "
 			}
 			cfg.Execute += arg
@@ -48,6 +50,8 @@ func main() {
 
 	if argSetup {
 		setup(cfg)
+		return
 	}
+
 	start(cfg)
 }

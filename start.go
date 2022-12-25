@@ -23,6 +23,9 @@ func start(cfg *DiscoConfig) {
 	flags += " -v \"" + workdir + ":/src\""
 
 	switch cfg.Type {
+	case "base":
+		// Don't have to change anything
+
 	case "js", "javascript":
 		image = "codecatt/disco:js"
 
@@ -39,6 +42,10 @@ func start(cfg *DiscoConfig) {
 	}
 
 	cmd += "docker run " + flags + " " + image
+
+	if cfg.Execute != "" {
+		cmd += " " + cfg.Execute
+	}
 
 	c := exec.Command("sh", "-c", cmd)
 	c.Stdin = os.Stdin
