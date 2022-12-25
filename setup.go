@@ -1,8 +1,9 @@
 package main
 
 import (
-	"fmt"
 	"os"
+
+	"github.com/pelletier/go-toml/v2"
 )
 
 func setup(cfg *DiscoConfig) {
@@ -20,8 +21,8 @@ func setup(cfg *DiscoConfig) {
 	if err != nil {
 		panic(err)
 	}
-	defer f.Close()
+	toml.NewEncoder(f).Encode(cfg)
+	f.Close()
 
-	fmt.Fprintf(f, "type = \"%s\"\n", cfg.Type)
 	println("Created disco.toml")
 }

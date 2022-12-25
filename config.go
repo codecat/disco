@@ -1,10 +1,10 @@
 package main
 
 type DiscoConfig struct {
-	Type    string
-	Execute string
+	Type    string `toml:"type"`
+	Execute string `toml:"execute,omitempty"`
 
-	Ports []string
+	Ports []string `toml:"ports,omitempty"`
 
-	SSH bool
+	SSH bool `toml:"ssh,omitempty"`
 }
