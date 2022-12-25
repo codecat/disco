@@ -3,8 +3,12 @@ package main
 import (
 	"os"
 	"os/exec"
+	"regexp"
 	"runtime"
+	"strings"
 )
+
+var gRegexWSLPath = regexp.MustCompile(`^([a-zA-Z]+):\/`)
 
 func getDockerCommand() string {
 	if runtime.GOOS == "windows" {
@@ -31,4 +35,11 @@ func runDocker(args string) error {
 	cmd.Stdout = os.Stdout
 	cmd.Stderr = os.Stderr
 	return cmd.Run()
+}
+
+func toWslPath(path string) string {
+	path = strings.ReplaceAll(path, "\\", "/")
+	disk := gRegexWSLPath.FindStringSubmatch(path)
+	diskLetters := strings.ToLower(disk[1])
+	return gRegexWSLPath.ReplaceAllString(path, "/mnt/"+diskLetters+"/")
 }
