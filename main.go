@@ -2,9 +2,7 @@ package main
 
 import (
 	"os"
-	"os/exec"
 	"regexp"
-	"runtime"
 	"strings"
 
 	"github.com/pelletier/go-toml"
@@ -13,72 +11,54 @@ import (
 var gRegexWSLPath = regexp.MustCompile(`^([a-zA-Z]+):\/`)
 
 type DiscoConfig struct {
-	Type  string
-	Ports []string
+	Type    string
+	Ports   []string
+	Execute string
 }
 
 func main() {
-	for _, arg := range os.Args[1:] {
-		if arg == "--help" || arg == "-h" {
-			println("Usage: disco")
-			return
+	argSetup := false
+
+	cfg := &DiscoConfig{}
+
+	f, err := os.Open("disco.toml")
+	if err == nil {
+		defer f.Close()
+
+		err = toml.NewDecoder(f).Decode(cfg)
+		if err != nil {
+			panic(err)
 		}
 	}
 
-	f, err := os.Open("disco.toml")
-	if err != nil {
-		println(err.Error())
-		return
+	for _, arg := range os.Args[1:] {
+		if strings.HasPrefix(arg, "-") {
+			if arg == "--help" || arg == "-h" {
+				println("Usage: disco [--setup|-s] [type]")
+				return
+			} else if arg == "--setup" || arg == "-s" {
+				argSetup = true
+				continue
+			} else {
+				println("Unexpected argument:", arg)
+				return
+			}
+		}
+
+		if cfg.Type == "" {
+			cfg.Type = arg
+		} else {
+			if len(cfg.Execute) > 0 {
+				cfg.Execute += " "
+			}
+			cfg.Execute += arg
+		}
 	}
 
-	cfg := DiscoConfig{}
-	err = toml.NewDecoder(f).Decode(&cfg)
-	if err != nil {
-		println(err.Error())
-		return
+	if argSetup {
+		setup(cfg)
 	}
-
-	cmd := ""
-	workdir, _ := os.Getwd()
-	homedir, _ := os.UserHomeDir()
-
-	if runtime.GOOS == "windows" {
-		cmd = "wsl --exec "
-		workdir = toWslPath(workdir)
-		homedir = toWslPath(homedir)
-	}
-
-	image := "codecatt/disco:base"
-	flags := "--rm -it"
-	flags += " -v \"" + homedir + "/.ssh:/home/developer/.ssh:ro\""
-	flags += " -v \"" + workdir + ":/src\""
-	flags += " -v \"" + workdir + "/disco.toml:/src/disco.toml:ro\""
-
-	switch cfg.Type {
-	case "js":
-	case "javascript":
-		image = "codecatt/disco:js"
-
-	case "vite":
-		image = "codecatt/disco:js"
-		flags += " -p 127.0.0.1:5173:5173"
-
-	case "py":
-	case "python":
-		image = "codecatt/disco:py"
-	}
-
-	for _, port := range cfg.Ports {
-		flags += " -p " + port
-	}
-
-	cmd += "docker run " + flags + " " + image
-
-	c := exec.Command("sh", "-c", cmd)
-	c.Stdin = os.Stdin
-	c.Stdout = os.Stdout
-	c.Stderr = os.Stderr
-	c.Run()
+	start(cfg)
 }
 
 func toWslPath(path string) string {
