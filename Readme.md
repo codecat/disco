@@ -4,7 +4,12 @@
 # Install
 If you have Go installed, simply run this:
 ```
-go install github.com/codecat/disco@latest
+$ go install github.com/codecat/disco@latest
+```
+You might also have to add `$HOME/go/bin` to your `$PATH` variable, for example:
+
+```sh
+export PATH=$HOME/go/bin:$PATH
 ```
 
 # Usage
