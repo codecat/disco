@@ -6,5 +6,6 @@ type DiscoConfig struct {
 
 	Ports []string `toml:"ports,omitempty"`
 
-	SSH bool `toml:"ssh,omitempty"`
+	SSH   bool `toml:"ssh,omitempty"`
+	Zshrc bool `toml:"zshrc,omitempty"`
 }

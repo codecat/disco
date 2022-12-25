@@ -25,6 +25,10 @@ func start(cfg *DiscoConfig) {
 		flags += " -v \"" + homedir + "/.ssh:/home/developer/.ssh:ro\""
 	}
 
+	if cfg.Zshrc {
+		flags += " -v \"" + homedir + "/.zshrc:/home/developer/.zshrc:ro\""
+	}
+
 	switch cfg.Type {
 	case "base":
 		// Don't have to change anything

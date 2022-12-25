@@ -25,7 +25,7 @@ func main() {
 	for _, arg := range os.Args[1:] {
 		if strings.HasPrefix(arg, "-") {
 			if arg == "--help" || arg == "-h" {
-				println("Usage: disco [--setup|-s] [--ssh] [type] [command] [args..]")
+				println("Usage: disco [--setup|-s] [--ssh] [--zshrc] [type] [command] [args..]")
 				return
 
 			} else if arg == "--setup" || arg == "-s" {
@@ -35,6 +35,9 @@ func main() {
 			} else if arg == "--ssh" {
 				cfg.SSH = true
 				continue
+
+			} else if arg == "--zshrc" {
+				cfg.Zshrc = true
 
 			} else {
 				println("Unexpected argument:", arg)
