@@ -68,3 +68,9 @@ There are a couple extra options you can specify either in the config file or on
 * `zshrc`, `--zshrc`: mount a read-only volume from your own `~/.zshrc` to the container's `~/.zshrc` in case you want to use your own zsh configuration.
 
 Passed options may also be combined with `--setup` to create a config file with those options.
+
+# Building images
+Run the build script to build all images:
+```
+$ scripts/build.sh
+```
