@@ -2,7 +2,7 @@ FROM alpine:edge
 
 LABEL org.opencontainers.image.source=https://github.com/codecat/disco
 
-RUN apk add sudo zsh curl git vim tmux openssh
+RUN apk add sudo zsh curl git vim tmux openssh file the_silver_searcher
 
 RUN adduser -D -u 1000 -s /bin/zsh developer
 RUN echo 'developer ALL=(ALL) NOPASSWD:ALL' > /etc/sudoers.d/developer

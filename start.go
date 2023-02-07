@@ -46,6 +46,13 @@ func start(cfg *DiscoConfig) {
 
 	case "php":
 		image = "codecatt/disco:php"
+
+	case "php-framework":
+		image = "codecatt/disco:php-framework"
+
+	case "php-rr":
+		image = "codecatt/disco:php-framework"
+		flags += " -p 127.0.0.1:8080:8080"
 	}
 
 	for _, port := range cfg.Ports {

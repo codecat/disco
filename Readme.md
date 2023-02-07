@@ -39,6 +39,8 @@ The following image types are currently available out of the box:
 * `vite`: the same as `js`, but with port 5173 automatically exposed to 127.0.0.1.
 * `py`, `python`: image for Python3 development. This adds the `python3` and `py3-pip` packages.
 * `php`: image for PHP development. This adds the `php81` and `composer` packages.
+* `php-framework`: image for PHP development using frameworks, based on `php`. This adds a number of commonly required PHP modules.
+* `php-rr`: image for PHP development using Roadrunner, based on `php-framework`. Has port 8080 automatically exposed to 127.0.0.1.
 
 # `disco.toml`
 You may also set up a `disco.toml` file with a predefined configuration, so that you can run `disco` and automatically use the image type you need.
