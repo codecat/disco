@@ -18,11 +18,18 @@ func start(cfg *DiscoConfig) {
 	flags := "--rm -it"
 	flags += " -v \"" + workdir + ":/src\""
 
-	if cfg.Type != "base" && !imageExists(cfg.Type) {
-		buildImage("base")
+	if cfg.Type == "" {
+		cfg.Type = "base"
+	}
+	if cfg.Type != "base" && (!imageExists(cfg.Type) || cfg.Build) {
+		if err := buildImage("base"); err != nil {
+			return
+		}
 	}
 	if !imageExists(cfg.Type) || cfg.Build {
-		buildImage(cfg.Type)
+		if err := buildImage(cfg.Type); err != nil {
+			return
+		}
 	}
 
 	if cfg.SSH {

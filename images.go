@@ -20,5 +20,12 @@ func buildImage(imageType string) error {
 	if err != nil {
 		return err
 	}
-	return runDockerInput("build -t "+imageName(imageType)+" -", dockerfile)
+	args := "build"
+	if imageType == "base" {
+		args += " --pull"
+	}
+	args += " --no-cache"
+	args += " -t " + imageName(imageType)
+	args += " -"
+	return runDockerInput(args, dockerfile)
 }

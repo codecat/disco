@@ -2,6 +2,8 @@ FROM alpine:edge
 
 LABEL org.opencontainers.image.source=https://github.com/codecat/disco
 
+RUN apk update
+RUN apk upgrade
 RUN apk add sudo fish curl git vim helix helix-tree-sitter-vendor tmux openssh file ripgrep
 
 RUN adduser -D -u 1000 -s /usr/bin/fish developer
