@@ -49,10 +49,10 @@ You may also set up a `disco.toml` file with a predefined configuration, so that
 type = "js"
 ```
 
-You can also create this file by running `disco -s` or `disco --setup`. For example, the following command will create a `disco.toml` file with the `js` image type:
+You can also create this file by running `disco -i` or `disco --init`. For example, the following command will create a `disco.toml` file with the `js` image type:
 
 ```
-$ disco -s js
+$ disco -i js
 ```
 
 # Commands
