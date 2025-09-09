@@ -64,7 +64,6 @@ func start(cfg *DiscoConfig) {
 		flags += " " + cfg.Options
 	}
 
-	image = imageName(image)
 	if image != "base" && (!imageExists(image) || cfg.Build) {
 		if err := buildImage("base"); err != nil {
 			return
@@ -76,11 +75,12 @@ func start(cfg *DiscoConfig) {
 		}
 	}
 
-	args := "run " + flags + " " + image
+	args := "run " + flags + " " + imageName(image)
 
 	if cfg.Execute != "" {
 		args += " " + cfg.Execute
 	}
 
+	println("Run: " + args)
 	runDocker(args)
 }
