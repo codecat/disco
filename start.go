@@ -81,6 +81,5 @@ func start(cfg *DiscoConfig) {
 		args += " " + cfg.Execute
 	}
 
-	println("Run: " + args)
 	runDocker(args)
 }
