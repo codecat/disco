@@ -72,7 +72,7 @@ $ disco js npx vite build
 There are a couple extra options you can specify either in the config file or on the command line.
 
 * `ssh`, `--ssh`: mount a read-only volume from your own `~/.ssh` to the container's `~/.ssh`, this allows you to run `git push/pull` or `ssh` commands using your own keys.
-* `zshrc`, `--zshrc`: mount a read-only volume from your own `~/.zshrc` to the container's `~/.zshrc` in case you want to use your own zsh configuration.
+* `fish`, `--fish`: mount a read-only volume from your own `~/.config/fish` to the container's `~/.config/fish` in case you want to use your own fish configuration.
 
 Passed options may also be combined with `--setup` to create a config file with those options.
 
@@ -81,10 +81,4 @@ Passed options may also be combined with `--setup` to create a config file with 
 To build Disco and make it available for execution:
 ```
 $ go install
-```
-
-## Images
-Run the build script to build all images:
-```
-$ scripts/build.sh
 ```

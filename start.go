@@ -18,16 +18,19 @@ func start(cfg *DiscoConfig) {
 	flags := "--rm -it"
 	flags += " -v \"" + workdir + ":/src\""
 
-	if cfg.Pull {
-		flags += " --pull always"
+	if cfg.Type != "base" && !imageExists(cfg.Type) {
+		buildImage("base")
+	}
+	if !imageExists(cfg.Type) || cfg.Build {
+		buildImage(cfg.Type)
 	}
 
 	if cfg.SSH {
 		flags += " -v \"" + homedir + "/.ssh:/home/developer/.ssh:ro\""
 	}
 
-	if cfg.Zshrc {
-		flags += " -v \"" + homedir + "/.zshrc:/home/developer/.zshrc:ro\""
+	if cfg.Fish {
+		flags += " -v \"" + homedir + "/.config/fish:/home/developer/.config/fish:ro\""
 	}
 
 	switch cfg.Type {

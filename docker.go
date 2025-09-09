@@ -1,6 +1,7 @@
 package main
 
 import (
+	"bytes"
 	"os"
 	"os/exec"
 	"regexp"
@@ -27,6 +28,25 @@ func newDockerCommand(args string) *exec.Cmd {
 	}
 
 	return exec.Command(exe, exeFlag, getDockerCommand()+" "+args)
+}
+
+func runDockerOutput(args string) (string, error) {
+	cmd := newDockerCommand(args)
+	buffer := new(bytes.Buffer)
+	cmd.Stdout = buffer
+	cmd.Stderr = os.Stderr
+	if err := cmd.Run(); err != nil {
+		return "", err
+	}
+	return buffer.String(), nil
+}
+
+func runDockerInput(args string, input []byte) error {
+	cmd := newDockerCommand(args)
+	cmd.Stdin = bytes.NewBuffer(input)
+	cmd.Stdout = os.Stdout
+	cmd.Stderr = os.Stderr
+	return cmd.Run()
 }
 
 func runDocker(args string) error {
