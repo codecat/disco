@@ -14,23 +14,8 @@ func start(cfg *DiscoConfig) {
 		homedir = toWslPath(homedir)
 	}
 
-	image := "codecatt/disco:base"
 	flags := "--rm -it"
 	flags += " -v \"" + workdir + ":/src\""
-
-	if cfg.Type == "" {
-		cfg.Type = "base"
-	}
-	if cfg.Type != "base" && (!imageExists(cfg.Type) || cfg.Build) {
-		if err := buildImage("base"); err != nil {
-			return
-		}
-	}
-	if !imageExists(cfg.Type) || cfg.Build {
-		if err := buildImage(cfg.Type); err != nil {
-			return
-		}
-	}
 
 	if cfg.SSH {
 		flags += " -v \"" + homedir + "/.ssh:/home/developer/.ssh:ro\""
@@ -40,28 +25,30 @@ func start(cfg *DiscoConfig) {
 		flags += " -v \"" + homedir + "/.config/fish:/home/developer/.config/fish:ro\""
 	}
 
+	image := "base"
+
 	switch cfg.Type {
-	case "base":
-		// Don't have to change anything
+	case "base", "":
+		image = "base"
 
 	case "js", "javascript":
-		image = "codecatt/disco:js"
+		image = "js"
 
 	case "vite":
-		image = "codecatt/disco:js"
+		image = "js"
 		flags += " -p 127.0.0.1:5173:5173"
 
 	case "py", "python":
-		image = "codecatt/disco:py"
+		image = "py"
 
 	case "php":
-		image = "codecatt/disco:php"
+		image = "php"
 
 	case "php-framework":
-		image = "codecatt/disco:php-framework"
+		image = "php-framework"
 
 	case "php-rr":
-		image = "codecatt/disco:php-framework"
+		image = "php-framework"
 		flags += " -p 127.0.0.1:8080:8080"
 	}
 
@@ -75,6 +62,18 @@ func start(cfg *DiscoConfig) {
 
 	if cfg.Options != "" {
 		flags += " " + cfg.Options
+	}
+
+	image = imageName(image)
+	if image != "base" && (!imageExists(image) || cfg.Build) {
+		if err := buildImage("base"); err != nil {
+			return
+		}
+	}
+	if !imageExists(image) || cfg.Build {
+		if err := buildImage(image); err != nil {
+			return
+		}
 	}
 
 	args := "run " + flags + " " + image
